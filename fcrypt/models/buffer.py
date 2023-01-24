@@ -20,12 +20,15 @@ class Buffer:
             
         remove(self.path)
         self.fp = open(self.path, 'a', encoding=ENCODING)
+        return self
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.fp.close()
     
-    def __add__(self, other):
+    def __add__(self, other: str):
         self.fp.write(other)
+        self.fp.flush()
+        return self
 
 
 __all__ = ('Buffer',)

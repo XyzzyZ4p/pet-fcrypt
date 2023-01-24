@@ -15,7 +15,7 @@ def cli(): ...
 @click.option("--secret-key", default=PASSWORD, help="Encrypting password")
 @click.option("--out", default='', help="Output file")
 @click.argument("file")
-def encrypt(file, secret_key, out_path):
+def encrypt(file, secret_key, out):
     """Encrypt file
 
     FILE - path to file
@@ -25,17 +25,17 @@ def encrypt(file, secret_key, out_path):
         crypt1.py encrypt --secret-key [PASSWORD] [path]
         crypt1.py encrypt --out [path] [path]
     """
-    if not out_path:
-        out = file_path_helper(out_path, ENCODE_EXT)
+    if not out:
+        out = file_path_helper(out, ENCODE_EXT)
     file = File(file, secret=secret_key)
-    file.encrypt(out_path)
+    file.encrypt(out)
     
 
 @cli.command("decrypt")
 @click.option("--secret-key", default=PASSWORD, help="Encrypting password")
 @click.option("--out", default='', help="Output file")
 @click.argument("file")
-def decrypt(file, secret_key, out_path):
+def decrypt(file, secret_key, out):
     """Decrypt file
 
     FILE - path to file
@@ -45,8 +45,7 @@ def decrypt(file, secret_key, out_path):
         crypt1.py decrypt --secret-key [PASSWORD] [path]
         crypt1.py decrypt --out [path] [path]
     """
-
-    if not out_path:
-        out_path = file_path_helper(out_path, DECODE_EXT)
+    if not out:
+        out = file_path_helper(out, DECODE_EXT)
     file = File(file, secret=secret_key)
-    file.decrypt(out_path)
+    file.decrypt(out)

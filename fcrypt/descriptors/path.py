@@ -7,7 +7,7 @@ class FileExist:
     
     def __get__(self, instance, owner):
         value = getattr(instance, self.name)
-        path = Path(value) 
+        path = Path(value).resolve() 
         if not path.exists() and not path.is_file():
             raise FileNotFoundError()
         return str(path)
@@ -19,7 +19,7 @@ class FileNotExist:
 
     def __get__(self, instance, owner):
         value = getattr(instance, self.name)
-        path = Path(value)
+        path = Path(value).resolve()
         if path.exists() and path.is_dir():
             raise FileExistsError()
         return str(path)
